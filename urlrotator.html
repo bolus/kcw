@@ -1,10 +1,31 @@
 <html>
     <head>
         <script type="text/javascript">
-            alert("foo");
+            campains = {
+                test : {
+                    variants: [
+                        {name: "foo", url: "http://foo.de/"},
+                        {name: "ebay", url: "http://ebay.de/"},
+                        {name: "google", url: "http://google.de/"}
+                    ]
+                }
+            }
+            campaign = window.location.search.slice(1); // '?' am Anfang entfernen
+            campaign = campains[campaign]; // Wenn 'campain' Null ist, wird der Besucher zur Startseite weiter geleitet
+            variant = campaign.variants[Math.floor(Math.random( ) * campaign.variants.length)];
+            parameters = window.location.hash.slice(1) // der Hash-Teil ("#") der URL wird der Ziel-URL als URL-Parameter angehängt
+            url = variant.url + "?" + parameters
+            window.location.replace(url); // 'replace' funktioniert mehr wie ein HTTP redirect (dieses Dokument landet nicht in der history)
+            // ^ in IE < 9 geht der referer verloren. Unter folgender URL ist ein workaround beschrieben, falls nötig:
+            // http://stackoverflow.com/questions/503093/how-can-i-make-a-redirect-page-in-jquery-javascript/11690095#11690095
+            // allerdings könnte ich eventuell auch einfach einen 'referer' URL-Paramter anhängen und so den referer verwenden oder
+            // der Statistik-Software übergeben
         </script>
+        <meta http-equiv="refresh" content="7; url=http://www.meinkaercher.de/?urlrotator-fail=meta-refresh">
     </head>
     <body>
-        <a href="http://foo.de/">foo</a>
+        <a href="http://www.meinkaercher.de/?urlrotator-fail=user-click">
+            Klicken Sie bitte hier, falls Sie nicht automatisch innerhalb von 3 Sekunden weiter geleitet werden.
+        </a>
     </body>
 </html>
