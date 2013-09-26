@@ -1,0 +1,58 @@
+<html>
+    <head>
+        <script type="text/javascript">
+            campains = {
+                // Alte Kampagnen für spätere Referenz in einer Datei archivieren
+                // (z.B. damit ich bereits verwendete Namen und bereits getestetes nachsehen kann)
+                hdr_produkt_test_1 : {
+                    /*  Testen, welche original von Kärcher erstellte Hochdruckreiniger-Producktbeschreibung am besten konvertieren
+                        Die Varianten / Produktbeschreibungen sind:
+                        - Hochdruckreiniger K 2.100 - hochdruckreiniger-k-2-100
+                            - 70€. Basic HDR
+                        - Hochdruckreiniger K 3.500 T 50 - hochdruckreiniger-k-3-500-t-50
+                            - 200€. Normaler HDR mit Zubehör. Trust-Symbole
+                        - Hochdruckreiniger K 5.700 T 250 - hochdruckreiniger-k-5-700-t-250
+                            - 400€. Sieht gut aus, "Darthwader der HDR". Viele features. Ok  bis gute Beschreibung
+
+                        Kandidaten für einen nachfolgenden Test sind:
+                        - Hochdruckreiniger K 4.00 EcoSilent ALU - hochdruckreiniger-k-4-00-ecosilent-alu
+                            - 270€. 50% leiser, "ideal für Einsätze in Wohngebieten". Ok Beschreibung.
+                        - Hochdruckreiniger K 2.300 T 50 - hochdruckreiniger-k-2-300-t-50
+                            - 130€. Basic HDR + Zubehör
+                        - Hochdruckreiniger K 3.800 eco!ogic - hochdruckreiniger-k-3-800-eco-ogic
+                            - 230€. ecologig
+                        - Hochdruckreiniger K 4.800 eco!ogic - hochdruckreiniger-k-4-800-eco-ogic
+                            - 350€. ecologig
+                            - Unterschiede zu K 3.800 eco!ogic: sieht besser aus (Bild), bessere Beschreibung
+                        - Hochdruckreiniger K 4.500 T 250 - hochdruckreiniger-k-4-500-t-250
+                            - 260€. Gute Beschreibung
+                    */
+                    variants: [
+                        {name: "hochdruckreiniger-k-2-100__org-beschreibung", url: "http://www.meinkaercher.de/collections/gerate__home-garden__hochdruckreiniger__einstiegsklasse-hochdruckreiniger/products/hochdruckreiniger-k-2-100"},
+                        {name: "hochdruckreiniger-k-3-500-t-50__org-beschreibung", url: "http://www.meinkaercher.de/collections/gerate__home-garden__hochdruckreiniger__mittelklasse-hochdruckreiniger/products/hochdruckreiniger-k-3-500-t-50"},
+                        {name: "hochdruckreiniger-k-5-700-t-250__org-beschreibung", url: "http://www.meinkaercher.de/collections/gerate__home-garden__hochdruckreiniger__mittelklasse-hochdruckreiniger/products/hochdruckreiniger-k-5-700-t-250"}
+                    ]
+                }
+            }
+            campaign_name = window.location.search.slice(1); // '?' am Anfang entfernen
+            if(campaign_name != ""){
+                // Ansonsten wird der Besucher zur Startseite weiter geleitet
+                campaign = campains[campaign_name];
+                variant = campaign.variants[Math.floor(Math.random( ) * campaign.variants.length)];
+                url_parameters = window.location.hash.slice(1); // der Hash-Teil ("#") der URL wird der Ziel-URL als URL-Parameter angehängt
+                url = "#{variant.url}?urst_kmp=#{campaign_name}&urst_var=#{variant.name}&#{url_parameters}";
+                window.location.replace(url); // 'replace' funktioniert mehr wie ein HTTP redirect (dieses Dokument landet nicht in der history)
+                    // ^ in IE < 9 geht der referer verloren. Unter folgender URL ist ein workaround beschrieben, falls nötig:
+                    // http://stackoverflow.com/questions/503093/how-can-i-make-a-redirect-page-in-jquery-javascript/11690095#11690095
+                    // allerdings könnte ich eventuell auch einfach einen 'referer' URL-Paramter anhängen und so den referer verwenden oder
+                    // der Statistik-Software übergeben
+            };
+        </script>
+        <meta http-equiv="refresh" content="3; url=http://www.meinkaercher.de/?urlrotator-fail=meta-refresh">
+    </head>
+    <body>
+        <a href="http://www.meinkaercher.de/?urlrotator-fail=user-click">
+            Klicken Sie bitte hier, falls Sie nicht automatisch innerhalb von 3 Sekunden weiter geleitet werden.
+        </a>
+    </body>
+</html>
