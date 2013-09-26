@@ -28,19 +28,21 @@
                             - 260€. Gute Beschreibung
                     */
                     variants: [
-                        {name: "hochdruckreiniger-k-2-100__org-beschreibung", url: "http://www.meinkaercher.de/collections/gerate__home-garden__hochdruckreiniger__einstiegsklasse-hochdruckreiniger/products/hochdruckreiniger-k-2-100"},
-                        {name: "hochdruckreiniger-k-3-500-t-50__org-beschreibung", url: "http://www.meinkaercher.de/collections/gerate__home-garden__hochdruckreiniger__mittelklasse-hochdruckreiniger/products/hochdruckreiniger-k-3-500-t-50"},
-                        {name: "hochdruckreiniger-k-5-700-t-250__org-beschreibung", url: "http://www.meinkaercher.de/collections/gerate__home-garden__hochdruckreiniger__mittelklasse-hochdruckreiniger/products/hochdruckreiniger-k-5-700-t-250"}
+                        {name: "hochdruckreiniger-k-2-100__org-desc", url: "http://www.meinkaercher.de/collections/gerate__home-garden__hochdruckreiniger__einstiegsklasse-hochdruckreiniger/products/hochdruckreiniger-k-2-100"},
+                        {name: "hochdruckreiniger-k-3-500-t-50__org-desk", url: "http://www.meinkaercher.de/collections/gerate__home-garden__hochdruckreiniger__mittelklasse-hochdruckreiniger/products/hochdruckreiniger-k-3-500-t-50"},
+                        {name: "hochdruckreiniger-k-5-700-t-250__org-desk", url: "http://www.meinkaercher.de/collections/gerate__home-garden__hochdruckreiniger__mittelklasse-hochdruckreiniger/products/hochdruckreiniger-k-5-700-t-250"}
                     ]
                 }
             }
             campaign_name = window.location.search.slice(1); // '?' am Anfang entfernen
+            console.log("X " + campaign_name)
             if(campaign_name != ""){
                 // Ansonsten wird der Besucher zur Startseite weiter geleitet
                 campaign = campains[campaign_name];
                 variant = campaign.variants[Math.floor(Math.random( ) * campaign.variants.length)];
                 url_parameters = window.location.hash.slice(1); // der Hash-Teil ("#") der URL wird der Ziel-URL als URL-Parameter angehängt
-                url = "#{variant.url}?urst_kmp=#{campaign_name}&urst_var=#{variant.name}&#{url_parameters}";
+                url = variant.url + "?urst_cmp=" + campaign_name + "&urst_var=" + variant.name + "&" + url_parameters;
+                console.log("U " + url)
                 window.location.replace(url); // 'replace' funktioniert mehr wie ein HTTP redirect (dieses Dokument landet nicht in der history)
                     // ^ in IE < 9 geht der referer verloren. Unter folgender URL ist ein workaround beschrieben, falls nötig:
                     // http://stackoverflow.com/questions/503093/how-can-i-make-a-redirect-page-in-jquery-javascript/11690095#11690095
@@ -48,7 +50,7 @@
                     // der Statistik-Software übergeben
             };
         </script>
-        <meta http-equiv="refresh" content="7; url=http://www.meinkaercher.de/?urlrotator-fail=meta-refresh">
+        <meta http-equiv="refresh" content="3; url=http://www.meinkaercher.de/?urlrotator-fail=meta-refresh">
     </head>
     <body>
         <a href="http://www.meinkaercher.de/?urlrotator-fail=user-click">
@@ -56,3 +58,8 @@
         </a>
     </body>
 </html>
+<!---
+    Eventuel Tun:
+    - Dinge URL-encoden
+    - Dev view: per spezial URL-Parameter alle Tests + Varianten zeigen
+-->
